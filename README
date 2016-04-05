@@ -2,3 +2,15 @@
 This tool automates downloading and installing OS images to the HiKey board.
 
 Please note that this is work in progress! Please review the scripts before using them.
+
+Usage:
+
+1. Create a config file for the OS you wish to download/install
+   -> refer to configs/template_* for details
+   
+2. Fetch the OS:
+   # ./HiKeyTool.sh configs/<config.conf> fetch
+   
+3. Install the OS:
+   # ./HiKeyTool.sh configs/<config.conf> flash
+
