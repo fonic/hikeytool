@@ -1,0 +1,71 @@
+
+==============================================================
+
+ Install Android AOSP to SD card
+
+==============================================================
+
+
+NOTE: Steps 2-4 are automated by aosp2sdcard.sh
+
+
+1. Modify AOSP 'fstab.hikey':
+	/dev/block/mmcblk1p2                                    /system             ext4      ro                                                                   wait
+	/dev/block/mmcblk1p2                                    /system             squashfs  ro                                                                   wait
+	/dev/block/mmcblk1p3                                    /cache              ext4      discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1    wait
+	/dev/block/mmcblk1p4                                    /data               ext4      discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1    wait
+
+
+2. Partition layout SD card (MBR):
+	Device     Boot    Start      End Sectors  Size Id Type
+	/dev/sdh1  *        2048   206847  204800  100M  e W95 FAT16 (LBA)
+	/dev/sdh2         206848  8595455 8388608    4G 83 Linux
+	/dev/sdh3        8595456 10692607 2097152    1G 83 Linux
+	/dev/sdh4       10692608 19081215 8388608    4G 83 Linux
+
+
+3. Filesystems SD card:
+	# mkfs.vfat -n boot /dev/sdh1
+	# mkfs.ext4 -L system /dev/sdh2
+	# mkfs.ext4 -L cache /dev/sdh3
+	# mkfs.ext4 -L data /dev/sdh4
+
+
+4. Copy build to SD card:
+
+	Boot partition (just for the sake of completeness; won't boot from this partition!):
+	# mount /dev/sdh1 sdcard
+	# mount boot.img image
+	# cp -a image/* sdcard
+	# umount sdcard image
+	
+	System partition:
+	# simg2img system.img system.img.raw
+	# mount /dev/sdh2 sdcard
+	# mount system.img.raw image
+	# cp -a image/* sdcard
+	# umount sdcard image
+	
+	Cache partition:
+	Doesn't need any contents, may stay empty.
+
+	Data partition:
+	Doesn't need any contents, may stay empty.
+
+
+5. Flash build to eMMC:
+	Flash everything except cache, system, userdata using HiKeyTool.sh (comment out the relevant lines)
+	
+
+6. Disable booting from SD card:
+	# fastboot oem bootdevice emmc
+
+
+Boot process explained:
+	HiKey board will boot from eMMC. fstab entries in ramdisk of eMMC boot partition 
+	point to SD card, so the init process will mount the SD card partitions. As of
+	03/24/16 booting directly from SD card fails, presumably due to bootloader which
+	contains hardcoded paths/kernel command line for Debian only.
+
+
+24.03.16
