@@ -1,6 +1,7 @@
 
-This tool automates downloading and installing OS images to the HiKey board.
-Please note that this is work in progress! Please review the scripts before using them.
+This tool automates downloading and installing OS images for the HiKey board.
+Please note that this is work in progress, you should review the scripts before
+using them.
 
 Usage:
 
@@ -14,6 +15,6 @@ Usage:
    # ./HiKeyTool.sh configs/<config.conf> flash
 
 NOTE:
-Currently, installing an OS to SD card is quite difficult due to the lack of documentation
-regarding this specific part of the boot process. Support will be added as soon as proper
-documentation is available.
+Currently, installing an OS to SD card is quite difficult due to the lack of
+documentation regarding this specific part of the boot process. Support will
+be added as soon as proper documentation is available.
