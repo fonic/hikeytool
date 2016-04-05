@@ -69,3 +69,4 @@ Boot process explained:
 	It seems that it's currently not possible to boot Android directly from SD
 	card, presumably due to the bootloader containing some hard-coded components
 	for Debian only.
+
