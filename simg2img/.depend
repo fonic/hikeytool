@@ -1,0 +1,14 @@
+simg2img.o: simg2img.c include/sparse/sparse.h
+simg2simg.o: simg2simg.c include/sparse/sparse.h
+img2simg.o: img2simg.c include/sparse/sparse.h
+append2simg.o: append2simg.c include/sparse/sparse.h sparse_file.h \
+ backed_block.h
+backed_block.o: backed_block.c backed_block.h sparse_defs.h
+output_file.o: output_file.c defs.h output_file.h include/sparse/sparse.h \
+ sparse_crc32.h sparse_format.h sparse_defs.h
+sparse.o: sparse.c include/sparse/sparse.h defs.h sparse_file.h \
+ output_file.h backed_block.h sparse_defs.h sparse_format.h
+sparse_crc32.o: sparse_crc32.c
+sparse_err.o: sparse_err.c include/sparse/sparse.h
+sparse_read.o: sparse_read.c include/sparse/sparse.h defs.h output_file.h \
+ sparse_crc32.h sparse_file.h sparse_format.h sparse_defs.h
