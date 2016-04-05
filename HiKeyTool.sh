@@ -1,16 +1,17 @@
 #!/bin/bash
 
-# -----------------------------------
+# ----------------------------------------------------------------------
 #
-#  Developed by Fonic
+#  HiKeyTool v1.0
+#
+#  Developed by Fonic (https://github.com/fonic)
 #  Modified: 04/05/16
 #
 #  Based on:
-#  https://github.com/96boards/documentation/wiki/HiKeyUEFI#install-from-prebuilt-binaries
-#  https://github.com/96boards/documentation/wiki/HiKeyUEFI#flash-binaries-to-emmc-
-#  https://github.com/96boards/documentation/wiki/HiKeyGettingStarted#3-installing-build-of-android-open-source-project
+#  https://github.com/96boards/documentation/wiki/HiKeyGettingStarted
+#  https://github.com/96boards/documentation/wiki/HiKeyUEFI
 #
-# -----------------------------------
+# ----------------------------------------------------------------------
 
 
 # ---------------------------------

@@ -1,22 +1,22 @@
 
-==============================================================
-
+============================================================
+ 
  Install Android AOSP to SD card
-
- Created by Fonic
+ 
+ Created by Fonic (https://github.com/fonic)
  Modified: 04/05/16
-
-==============================================================
+ 
+============================================================
 
 
 NOTE: Steps 2-4 are automated by aosp2sdcard.sh
 
 
 1. Modify AOSP 'fstab.hikey':
-	/dev/block/mmcblk1p2                                    /system             ext4      ro                                                                   wait
-	/dev/block/mmcblk1p2                                    /system             squashfs  ro                                                                   wait
-	/dev/block/mmcblk1p3                                    /cache              ext4      discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1    wait
-	/dev/block/mmcblk1p4                                    /data               ext4      discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1    wait
+	/dev/block/mmcblk1p2     /system     ext4       ro                                                                  wait
+	/dev/block/mmcblk1p2     /system     squashfs   ro                                                                  wait
+	/dev/block/mmcblk1p3     /cache      ext4       discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1   wait
+	/dev/block/mmcblk1p4     /data       ext4       discard,noauto_da_alloc,data=ordered,user_xattr,discard,barrier=1   wait
 
 
 2. Partition layout SD card (MBR):
