@@ -2,10 +2,10 @@
 
 # -----------------------------------
 #
-#  Developed by Maxxim
-#  Date: 03/19/16
+#  Developed by Fonic
+#  Modified: 04/05/16
 #
-#  Sources:
+#  Based on:
 #  https://github.com/96boards/documentation/wiki/HiKeyUEFI#install-from-prebuilt-binaries
 #  https://github.com/96boards/documentation/wiki/HiKeyUEFI#flash-binaries-to-emmc-
 #  https://github.com/96boards/documentation/wiki/HiKeyGettingStarted#3-installing-build-of-android-open-source-project
@@ -72,7 +72,7 @@ function copy() {
 
 # Fetch file [$1: source, $2: renameto]
 function fetch() {
-	local proto=${1%://*}
+	local proto="${1%://*}"
 	local file="${1##*://}"
 	if [ "$proto" == "file" ]; then
 		copy "$file" "$2"

@@ -3,6 +3,9 @@
 
  Install Android AOSP to SD card
 
+ Created by Fonic
+ Modified: 04/05/16
+
 ==============================================================
 
 
