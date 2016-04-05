@@ -62,10 +62,10 @@ NOTE: Steps 2-4 are automated by aosp2sdcard.sh
 
 
 Boot process explained:
-	HiKey board will boot from eMMC. fstab entries in ramdisk of eMMC boot partition 
-	point to SD card, so the init process will mount the SD card partitions. As of
-	03/24/16 booting directly from SD card fails, presumably due to bootloader which
-	contains hardcoded paths/kernel command line for Debian only.
 
+	HiKey board will boot from eMMC. Since fstab entries in ramdisk of eMMC boot
+	partition point to SD card, Android will mount and use the SD card partitions.
 
-24.03.16
+	It seems that it's currently not possible to boot Android directly from SD
+	card, presumably due to the bootloader containing some hard-coded components
+	for Debian only.
