@@ -1,7 +1,7 @@
 
 ============================================================
  
- Install Android AOSP to SD card
+ Install Android AOSP to SD card v1.2
  
  Created by Fonic (https://github.com/fonic)
  Modified: 04/05/16
@@ -53,7 +53,11 @@ NOTE: Steps 2-4 are automated by aosp2sdcard.sh
 	Doesn't need any contents, may stay empty.
 
 	Data partition:
-	Doesn't need any contents, may stay empty.
+	# simg2img userdata.img userdata.img.raw
+	# mount /dev/sdh2 sdcard
+	# mount userdata.img.raw image
+	# cp -a image/* sdcard
+	# umount sdcard image
 
 
 5. Flash build to eMMC:
