@@ -9,7 +9,7 @@
 ============================================================
 
 
-NOTE: Steps 2-4 are automated by aosp2sdcard.sh
+NOTE: Steps 2-4 may be automated using aosp2sdcard.sh
 
 
 1. Modify AOSP 'fstab.hikey':
@@ -61,7 +61,8 @@ NOTE: Steps 2-4 are automated by aosp2sdcard.sh
 
 
 5. Flash build to eMMC:
-	Flash everything except cache, system, userdata using HiKeyTool.sh (comment out the relevant lines)
+	Flash everything except cache, system and userdata using HiKeyTool.sh
+	(by commenting out the relevant lines)
 	
 
 6. Disable booting from SD card:
