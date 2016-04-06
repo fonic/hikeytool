@@ -2,8 +2,10 @@
 
 # -------------------------------------------------
 #
+#  aosp2sdcard.sh v1.2
+#
 #  Developed by Fonic (https://github.com/fonic)
-#  Modified: 04/05/16
+#  Modified: 04/06/16
 #
 # -------------------------------------------------
 
@@ -12,7 +14,7 @@
 #  Functions
 # ---------------------------------
 
-# Abort [no params]
+# Abort program [no params]
 function abort() {
 	echo
 	exit 1
@@ -37,10 +39,11 @@ function askyesno() {
 
 # Print action [$1: action]
 function action() {
-	echo -en "\033[1m$1... \033[0m"
+	#echo -en "\033[1m$1... \033[0m"
+	echo -en "$1... "
 }
 
-# Evaluate result [no params]
+# Print result [no params]
 function result() {
 	if [ $? -eq 0 ]; then
 		echo -e "\033[1;32mok\033[0m"
@@ -59,7 +62,7 @@ function result() {
 if [ "$2" == "" ]; then
 
 	# Print usage
-	echo -e "\n\033[1mUsage:\033[0m\n$0 <path_to_image> <device>\n"
+	echo -e "\n\033[1mUsage:\033[0m\n$0 <path_to_images> <device>\n"
 
 	# Compose list of removable devices with size > 0
 	list1=$(grep -l '1' /sys/block/sd*/removable | xargs -n 1 dirname)
@@ -84,7 +87,7 @@ fi
 image="$1"
 device="$2"
 ptable="$(pwd)/ptable-sdcard.img"
-simg2img="$(pwd)/../simg2img/simg2img"
+simg2img="$(pwd)/simg2img/simg2img"
 
 # Check if root
 if [[ ${EUID} != 0 ]]; then
@@ -94,17 +97,25 @@ fi
 
 # Print notice
 echo
-notice "*** DOUBLE CHECK that you have specified the correct device! ***"
-echo
-notice "Ready to write to SD card. All data on the SD card will be erased."
+notice "*** DOUBLE CHECK that you have specified the correct device ***"
+notice "Ready to write to SD card. All data on the card will be erased."
 echo
 askyesno "Continue" || abort
 echo
+
+# Build simg2img
+if [[ ! -x "$simg2img" ]]; then
+	action "Building simg2img"
+	(cd simg2img && make) &>/dev/null
+	result
+fi
 
 # Change to image directory
 action "Changing directory"
 cd "$image" &>/dev/null
 result
+
+exit 0
 
 # Create mount points
 action "Creating mountpoints"
@@ -152,12 +163,10 @@ action "Unmounting"
 umount image sdcard &>/dev/null
 result
 
-# Convert system image
+# Copy system partition contents
 action "Converting system image"
 "$simg2img" system.img system.img.raw
 result
-
-# Copy system partition contents
 action "Mounting system image"
 mount "system.img.raw" image &>/dev/null
 result
@@ -165,6 +174,26 @@ action "Mounting system partition"
 mount "${device}2" sdcard &>/dev/null
 result
 action "Copying system contents"
+cp -a image/* sdcard &>/dev/null
+result
+action "Syncing"
+sync &>/dev/null
+result
+action "Unmounting"
+umount image sdcard &>/dev/null
+result
+
+# Copy data partition contents
+action "Converting data image"
+"$simg2img" userdata.img userdata.img.raw
+result
+action "Mounting data image"
+mount "userdata.img.raw" image &>/dev/null
+result
+action "Mounting data partition"
+mount "${device}4" sdcard &>/dev/null
+result
+action "Copying data contents"
 cp -a image/* sdcard &>/dev/null
 result
 action "Syncing"
