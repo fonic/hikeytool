@@ -115,8 +115,6 @@ action "Changing directory"
 cd "$image" &>/dev/null
 result
 
-exit 0
-
 # Create mount points
 action "Creating mountpoints"
 mkdir -p "sdcard" "image" &>/dev/null
